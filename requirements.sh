@@ -1,15 +1,17 @@
-                sudo yum update
-                sudo yum install java-11-openjdk-devel -y
-                sudo yum install wget -y
-                cd /opt
-                sudo su
-                sudo wget http://mirrors.koehn.com/apache/tomcat/tomcat-8/v8.5.42/bin/apache-tomcat-8.5.42.tar.gz
-                sudo tar -zvxf apache-tomcat-8.5.42.tar.gz
-                sudo rm -r apache-tomcat-8.5.42.tar.gz
-                sudo mv apache-tomcat-8.5.42 Tomcat
-                sudo cd Tomcat/bin
-                sudo chmod +x startup.sh
-                sudo chmod +x shutdown.sh
-                sudo ln -s /opt/Tomcat/bin/startup.sh /usr/bin/tomcatup
-                sudo ln -s /opt/Tomcat/bin/shutdown.sh /usr/bin/tomcatdown
-                sudo tomcatup
+sudo yum -y update
+    sudo yum -y install java-1.8.0-openjdk-devel
+    sudo yum -y install wget
+    sudo yum -y install tomcat
+    sudo su
+    sudo echo "JAVA_OPTS=\"-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC\"" | sudo tee -a /usr/share/tomcat/conf/tomcat.conf
+    sudo yum -y install tomcat-webapps tomcat-admin-webapps
+    # sudo lineNo=$(wc -l < /usr/share/tomcat/conf/tomcat-users.xml)
+	sudo sed -i '$ d' /usr/share/tomcat/conf/tomcat-users.xml
+    sudo sed -i '$ d' /usr/share/tomcat/conf/tomcat-users.xml
+	sudo echo "<role rolename=\"manager-gui\"/>
+            <user username=\"manager\" password=\"manager\" roles=\"manager-gui\"/>
+            </tomcat-users>" | sudo tee -a /usr/share/tomcat/conf/tomcat-users.xml
+    sudo systemctl start tomcat
+    sudo systemctl restart tomcat
+    sudo systemctl enable tomcat
+    exit
