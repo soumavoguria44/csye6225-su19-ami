@@ -35,11 +35,11 @@
         {
             "type": "shell",
             "environment_vars": [
-                
+
             ],
             "script": "requirements.sh"
-                
-            
+
+
         }
     ]
 }
