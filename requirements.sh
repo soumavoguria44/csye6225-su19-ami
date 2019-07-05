@@ -1,3 +1,4 @@
+
 # sudo yum -y update
 #     sudo yum -y install java-1.8.0-openjdk-devel
 #     sudo yum -y install wget
@@ -15,6 +16,31 @@
 #     sudo systemctl restart tomcat
 #     sudo systemctl enable tomcat
 #     exit
+
+
+
+sudo yum update
+sudo yum install ruby
+sudo yum install wget
+
+cd /home/centos
+
+#install code-deployagent on the ec2 instance
+wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install  
+
+chmod +x ./install
+sudo ./install auto
+
+#Check Service is running
+sudo service codedeploy-agent status
+
+#Incase of error starting/running codedeploy agent , run below two commands
+sudo service codedeploy-agent start
+
+sudo service codedeploy-agent status
+
+
+
 
 # Java-11 Installation and Path Setup
     sudo yum -y install java-11-openjdk-devel
