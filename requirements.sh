@@ -20,7 +20,7 @@
 
 
 sudo yum update
-sudo yum install ruby
+sudo yum -y install ruby 
 sudo yum install wget
 
 cd /home/centos
@@ -87,27 +87,28 @@ sudo service codedeploy-agent status
     Environment=CATALINA_BASE=/opt/tomcat
     Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
     Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
-
+    WorkingDirectory=/opt/tomcat
     ExecStart=/opt/tomcat/bin/startup.sh
     ExecStop=/bin/kill -15 $MAINPID
-
     User=tomcat
     Group=tomcat
+    UMask=0007
+    RestartSec=10
+    Restart=always
 
     [Install]
     WantedBy=multi-user.target" | sudo tee -a /etc/systemd/system/tomcat.service
 
-
+    sudo systemctl daemon-reload
     # sudo systemctl start tomcat.service
     sudo systemctl status tomcat.service
 
     sudo systemctl enable tomcat.service
 
     sudo sed -i '$ d' /opt/tomcat/conf/tomcat-users.xml
-    sudo sed -i '$ d' /opt/tomcat/conf/tomcat-users.xml
-    sudo echo "<role rolename=\"manager-gui\"/>
-            <user username=\"manager\" password=\"manager\" roles=\"manager-gui\"/>
-            </tomcat-users>" | sudo tee -a /opt/tomcat/conf/tomcat-users.xml
+sudo echo -e "\t<role rolename=\"manager-gui\"/>
+\t<user username=\"manager\" password=\"manager\" roles=\"manager-gui\"/>
+</tomcat-users>" | sudo tee -a /opt/tomcat/conf/tomcat-users.xml
     # sudo systemctl restart tomcat.service
 
     # sudo systemctl stop tomcat.service
