@@ -1,11 +1,6 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/
-    filters:
-      branches:
-        only:
-          - master
     docker:
       - image: circleci/python:2.7-jessie
     steps:
