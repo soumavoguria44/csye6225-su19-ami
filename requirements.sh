@@ -19,28 +19,10 @@
 
 
 
-sudo yum update
-sudo yum install ruby
-sudo yum install wget
-
-cd /home/centos
-
-#install code-deployagent on the ec2 instance
-wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install  
-
-chmod +x ./install
-sudo ./install auto
-
-#Check Service is running
-sudo service codedeploy-agent status
-
-#Incase of error starting/running codedeploy agent , run below two commands
-sudo service codedeploy-agent start
-
-sudo service codedeploy-agent status
 
 
 
+  sudo yum update
 
 # Java-11 Installation and Path Setup
     sudo yum -y install java-11-openjdk-devel
@@ -87,27 +69,28 @@ sudo service codedeploy-agent status
     Environment=CATALINA_BASE=/opt/tomcat
     Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
     Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
-
+    WorkingDirectory=/opt/tomcat
     ExecStart=/opt/tomcat/bin/startup.sh
     ExecStop=/bin/kill -15 $MAINPID
-
     User=tomcat
     Group=tomcat
+    UMask=0007
+    RestartSec=10
+    Restart=always
 
     [Install]
     WantedBy=multi-user.target" | sudo tee -a /etc/systemd/system/tomcat.service
 
-
+    sudo systemctl daemon-reload
     # sudo systemctl start tomcat.service
     sudo systemctl status tomcat.service
 
     sudo systemctl enable tomcat.service
 
     sudo sed -i '$ d' /opt/tomcat/conf/tomcat-users.xml
-    sudo sed -i '$ d' /opt/tomcat/conf/tomcat-users.xml
-    sudo echo "<role rolename=\"manager-gui\"/>
-            <user username=\"manager\" password=\"manager\" roles=\"manager-gui\"/>
-            </tomcat-users>" | sudo tee -a /opt/tomcat/conf/tomcat-users.xml
+sudo echo -e "\t<role rolename=\"manager-gui\"/>
+\t<user username=\"manager\" password=\"manager\" roles=\"manager-gui\"/>
+</tomcat-users>" | sudo tee -a /opt/tomcat/conf/tomcat-users.xml
     # sudo systemctl restart tomcat.service
 
     # sudo systemctl stop tomcat.service
@@ -121,3 +104,22 @@ sudo service codedeploy-agent status
     sudo ls /opt/tomcat/webapps
 
     sudo systemctl start tomcat.service
+  
+    sudo yum -y install ruby 
+
+
+    cd /home/centos
+
+    #install code-deployagent on the ec2 instance
+    wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install  
+
+    chmod +x ./install
+    sudo ./install auto
+
+    #Check Service is running
+    sudo service codedeploy-agent status
+
+    #Incase of error starting/running codedeploy agent , run below two commands
+    sudo service codedeploy-agent start
+
+    sudo service codedeploy-agent status
