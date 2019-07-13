@@ -59,10 +59,8 @@
     echo "[Unit]
     Description=Apache Tomcat Web Application Container
     After=syslog.target network.target
-
     [Service]
     Type=forking
-
     Environment=JAVA_HOME=/usr/lib/jvm/jre
     Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
     Environment=CATALINA_HOME=/opt/tomcat
@@ -77,7 +75,6 @@
     UMask=0007
     RestartSec=10
     Restart=always
-
     [Install]
     WantedBy=multi-user.target" | sudo tee -a /etc/systemd/system/tomcat.service
 
