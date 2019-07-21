@@ -1,4 +1,4 @@
-
+#!/bin/bash -xe
 # sudo yum -y update
 #     sudo yum -y install java-1.8.0-openjdk-devel
 #     sudo yum -y install wget
@@ -156,7 +156,7 @@ sudo echo -e "\t<role rolename=\"manager-gui\"/>
             }
         }
     }
-    EOF
+EOF
 
     touch csye6225.log
     sudo chgrp -R tomcat csye6225.log
