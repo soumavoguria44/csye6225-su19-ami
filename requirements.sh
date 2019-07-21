@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+
 # sudo yum -y update
 #     sudo yum -y install java-1.8.0-openjdk-devel
 #     sudo yum -y install wget
