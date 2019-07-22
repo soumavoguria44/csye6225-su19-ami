@@ -138,7 +138,7 @@ sudo echo -e "\t<role rolename=\"manager-gui\"/>
                     "collect_list": [
                         {
                             "file_path": "/opt/tomcat/logs/csye6225.log",
-                            "log_group_name": "csye6225_summer2019",
+                            "log_group_name": "csye6225_su2019",
                             "log_stream_name": "webapp"
                         }
                     ]
@@ -179,8 +179,7 @@ EOF
     sudo wget https://s3.amazonaws.com/configfileforcloudwatch/amazon-cloudwatch-agent.service
     sudo cp amazon-cloudwatch-agent.service /usr/lib/systemd/system/
     sudo systemctl enable amazon-cloudwatch-agent.service
-    sudo systemctl start amazon-cloudwatch-agent.service
-    sudo systemctl status amazon-cloudwatch-agent.service
+    
     sudo echo 'SUCCESS!!!!!!!'
 
     exit 0
