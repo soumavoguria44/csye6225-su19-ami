@@ -120,3 +120,28 @@ sudo echo -e "\t<role rolename=\"manager-gui\"/>
     sudo service codedeploy-agent start
 
     sudo service codedeploy-agent status
+
+
+    touch csye6225.log
+    sudo chgrp -R tomcat csye6225.log
+    sudo chmod -R g+r csye6225.log
+    sudo chmod g+x csye6225.log
+    sudo mv csye6225.log /opt/tomcat/logs/csye6225.log
+
+    #Installing cloud-watch config agent
+    cat cloudwatch-config.json
+    
+
+    cd ~
+
+    sudo wget https://s3.us-east-1.amazonaws.com/amazoncloudwatch-agent-us-east-1/centos/amd64/latest/amazon-cloudwatch-agent.rpm
+    sudo rpm -U ./amazon-cloudwatch-agent.rpm
+    
+    cd ~
+
+    sudo wget https://s3.amazonaws.com/configfileforcloudwatch/amazon-cloudwatch-agent.service
+    sudo cp amazon-cloudwatch-agent.service /etc/systemd/system/
+    sudo systemctl enable amazon-cloudwatch-agent.service    
+    sudo echo 'SUCCESS!!!!!!!'
+
+    exit 0
