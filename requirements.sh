@@ -41,15 +41,16 @@
     sudo yum -y install wget
 
     cd ~
-    wget http://apache.mirrors.pair.com/tomcat/tomcat-9/v9.0.21/bin/apache-tomcat-9.0.21.tar.gz
-    sudo tar -zxvf apache-tomcat-9.0.21.tar.gz -C /opt/tomcat --strip-components=1
-    sudo rm -r apache-tomcat-9.0.21.tar.gz
+    wget http://apache.mirrors.pair.com/tomcat/tomcat-9/v9.0.22/bin/apache-tomcat-9.0.22.tar.gz
+    sudo tar -zxvf apache-tomcat-9.0.22.tar.gz -C /opt/tomcat --strip-components=1
+    sudo rm -r apache-tomcat-9.0.22.tar.gz
 
     cd /opt/tomcat
     sudo chgrp -R tomcat conf
     sudo chmod g+rwx conf
     sudo chmod -R g+r conf
-    sudo chown -R tomcat logs/ temp/ webapps/ work/
+    sudo chown -R tomcat logs/ temp
+    / webapps/ work/
 
     sudo chgrp -R tomcat bin
     sudo chgrp -R tomcat lib
